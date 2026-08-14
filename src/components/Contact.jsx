@@ -1,5 +1,19 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
+
+const formVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+  }
+};
+
+const fieldVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+};
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -21,7 +35,13 @@ export default function Contact() {
           subtitle="Ready to book Aslam Digital Studio for your next event? Share your details and we'll get back to you within 24 hours."
         />
 
-        <div className="contact-info">
+        <motion.div
+          className="contact-info"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <a href="tel:+1234567890" className="contact-info-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
@@ -34,10 +54,17 @@ export default function Contact() {
             </svg>
             <span>WhatsApp Us</span>
           </a>
-        </div>
+        </motion.div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-row">
+        <motion.form
+          className="contact-form"
+          onSubmit={handleSubmit}
+          variants={formVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          <motion.div className="form-row" variants={fieldVariants}>
             <div className="form-group">
               <label htmlFor="name">Your Name</label>
               <input type="text" id="name" name="name" required />
@@ -46,8 +73,8 @@ export default function Contact() {
               <label htmlFor="email">Email Address</label>
               <input type="email" id="email" name="email" required />
             </div>
-          </div>
-          <div className="form-row">
+          </motion.div>
+          <motion.div className="form-row" variants={fieldVariants}>
             <div className="form-group">
               <label htmlFor="phone">Phone</label>
               <input type="tel" id="phone" name="phone" />
@@ -65,19 +92,25 @@ export default function Contact() {
                 <option value="other">Other</option>
               </select>
             </div>
-          </div>
-          <div className="form-group full">
+          </motion.div>
+          <motion.div className="form-group full" variants={fieldVariants}>
             <label htmlFor="event-date">Event Date</label>
             <input type="date" id="event-date" name="event-date" />
-          </div>
-          <div className="form-group full">
+          </motion.div>
+          <motion.div className="form-group full" variants={fieldVariants}>
             <label htmlFor="message">Tell Us About Your Event</label>
             <textarea id="message" name="message" rows="5"></textarea>
-          </div>
-          <button type="submit" className={`btn-submit${submitted ? ' success' : ''}`}>
+          </motion.div>
+          <motion.button
+            type="submit"
+            className={`btn-submit${submitted ? ' success' : ''}`}
+            variants={fieldVariants}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+          >
             {submitted ? 'Thank you!' : 'Send Inquiry'}
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       </div>
     </section>
   );

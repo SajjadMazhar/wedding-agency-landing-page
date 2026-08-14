@@ -1,7 +1,35 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const sections = ['home', 'services', 'gallery', 'pricing', 'contact'];
+
+function NavLinks({ activeSection }) {
+  return (
+    <>
+      {sections.map((id) => (
+        <a
+          key={id}
+          href={`#${id}`}
+          className={activeSection === id ? 'active' : ''}
+        >
+          {id.charAt(0).toUpperCase() + id.slice(1)}
+        </a>
+      ))}
+    </>
+  );
+}
 
 export default function Navbar() {
   const [pastHero, setPastHero] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -10,34 +38,57 @@ export default function Navbar() {
         const heroBottom = hero.offsetTop + hero.offsetHeight;
         setPastHero(window.scrollY > heroBottom);
       }
+
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      let current = 'home';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav className={`navbar${pastHero ? ' past-hero' : ''}`}>
+    <motion.nav
+      className={`navbar${pastHero ? ' past-hero' : ''}`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <div className="nav-top">
-        <div className="nav-logo">
-          <span className="logo-script">Aslam Digital Studio</span>
-          <span className="logo-sub">Photography & Videography</span>
-        </div>
-        <div className="nav-center">
-          <div className="nav-links-hero">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#contact">Contact</a>
-          </div>
-        </div>
-        <div className="nav-right">
-          <div className="nav-actions">
-            <a href="#contact" className="btn-nav">Book Now</a>
-            <a href="#contact" className="btn-nav btn-nav-filled">Get a Quote</a>
-          </div>
-          <div className="nav-social">
+        <AnimatePresence>
+          {pastHero && (
+            <motion.div
+              className="nav-logo"
+              style={{ opacity: 1, transform: 'none', pointerEvents: 'auto' }}
+              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.92 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <span className="logo-script">Aslam Digital Studio</span>
+              <span className="logo-sub">Photography & Videography</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <motion.div
+          className="nav-social"
+          animate={
+            isMobile
+              ? { x: 0, position: 'relative', left: 0 }
+              : pastHero
+                ? { x: 'calc(50vw - 70px)', position: 'absolute', left: 0 }
+                : { x: 0, position: 'relative', left: 0 }
+          }
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
           <a href="https://www.instagram.com/aslam_digital_studio?igsh=bHV2Y25kZTV2OGZ6&igsi=bHV2Y25kZTV2OGZ6" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="2" width="20" height="20" rx="5"/>
@@ -56,16 +107,31 @@ export default function Navbar() {
               <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
             </svg>
           </a>
-          </div>
+        </motion.div>
+        <div className="nav-center">
+          <AnimatePresence>
+            {!pastHero && (
+              <motion.div
+                className="nav-links-hero"
+                key="links"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <NavLinks activeSection={activeSection} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+        <div className="nav-actions">
+          <a href="#contact" className="btn-nav">Book Now</a>
+          <a href="#contact" className="btn-nav btn-nav-filled">Get a Quote</a>
         </div>
       </div>
       <div className="nav-links">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
+        <NavLinks activeSection={activeSection} />
       </div>
-    </nav>
+    </motion.nav>
   );
 }

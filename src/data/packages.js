@@ -15,7 +15,7 @@
 const packages = [
   {
     name: "Essential",
-    price: "$800",
+    price: "₹25,000",
     featured: false,
     features: [
       "Up to 4 hours of coverage",
@@ -28,7 +28,7 @@ const packages = [
   },
   {
     name: "Signature",
-    price: "$2,000",
+    price: "₹65,000",
     featured: true,
     features: [
       "Up to 8 hours of coverage",
@@ -43,7 +43,7 @@ const packages = [
   },
   {
     name: "Grand",
-    price: "$3,500",
+    price: "₹1,50,000",
     featured: false,
     features: [
       "Full day coverage (12+ hours)",

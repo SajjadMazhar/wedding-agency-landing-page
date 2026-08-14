@@ -1,41 +1,41 @@
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import packages from '../data/packages';
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.15, ease: "easeOut" }
+  })
+};
+
 export default function Pricing() {
-  const gridRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    const cards = gridRef.current?.querySelectorAll('.pricing-card');
-    cards?.forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.15}s`;
-      observer.observe(card);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section id="pricing" className="pricing">
       <SectionHeader
         title="Our Packages"
         subtitle="Flexible photo and video packages designed for weddings, corporate events, birthdays, and anniversaries."
       />
-      <div className="pricing-grid" ref={gridRef}>
-        {packages.map((pkg) => (
-          <div className={`pricing-card${pkg.featured ? ' featured' : ''}`} key={pkg.name}>
+      <div className="pricing-grid">
+        {packages.map((pkg, i) => (
+          <motion.div
+            className={`pricing-card${pkg.featured ? ' featured' : ''}`}
+            key={pkg.name}
+            custom={i}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{
+              y: -8,
+              rotateX: 2,
+              rotateY: -1,
+              transition: { duration: 0.3 }
+            }}
+            style={{ transformPerspective: 1000 }}
+          >
             <div className="pricing-header">
               <h3>{pkg.name}</h3>
               <div className="pricing-rule"></div>
@@ -46,8 +46,15 @@ export default function Pricing() {
                 <li key={feature}>{feature}</li>
               ))}
             </ul>
-            <a href="#contact" className="btn-pricing">Inquire</a>
-          </div>
+            <motion.a
+              href="#contact"
+              className="btn-pricing"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Inquire
+            </motion.a>
+          </motion.div>
         ))}
       </div>
     </section>

@@ -1,8 +1,16 @@
+import { motion } from 'framer-motion';
+
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-curve"></div>
-      <div className="footer-content">
+      <motion.div
+        className="footer-content"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="footer-logo">
           <span className="logo-script">Aslam Digital Studio</span>
           <span className="logo-sub">Photography & Videography</span>
@@ -35,7 +43,7 @@ export default function Footer() {
           </a>
         </div>
         <p className="footer-copy">&copy; 2026 Aslam Digital Studio. All rights reserved.</p>
-      </div>
+      </motion.div>
     </footer>
   );
 }

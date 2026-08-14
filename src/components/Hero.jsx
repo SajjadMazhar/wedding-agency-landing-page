@@ -1,135 +1,181 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import slides from '../data/heroSlides';
 
-const collageImages = [
-  {
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=900&h=1200&fit=crop",
-    alt: "Bride and groom walking together",
-    className: "collage-main",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&h=800&fit=crop",
-    alt: "Wedding rings close-up",
-    className: "collage-top-left",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=700&h=500&fit=crop",
-    alt: "Couple at sunset",
-    className: "collage-top-right",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=800&fit=crop",
-    alt: "Bride portrait with bouquet",
-    className: "collage-bottom-left",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=700&h=500&fit=crop",
-    alt: "Wedding ceremony",
-    className: "collage-bottom-right",
-  },
-];
+const HeroParticles = lazy(() => import('./HeroParticles'));
 
-const taglines = [
-  "We Capture Emotions & Memories",
-  "Where Moments Become Timeless",
-  "Your Story, Beautifully Told",
-  "Frames That Feel Forever",
-  "Every Emotion, Perfectly Preserved",
-  "We Turn Moments Into Art",
-  "Love, Light & Legacy",
-  "Stories Written in Light",
-];
+const imageVariants = {
+  enter: {
+    opacity: 0,
+    scale: 1.1,
+    y: 60,
+  },
+  center: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    y: -60,
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }
+  }
+};
+
+function MandalaOrnament({ flip }) {
+  return (
+    <svg width="160" height="50" viewBox="0 0 160 50" fill="none" stroke="#D4A843" strokeWidth="0.8"
+      style={{ transform: flip ? 'rotate(180deg)' : 'none' }}>
+      <path d="M80 42 C70 35, 55 30, 40 33 C30 35, 25 30, 18 25" strokeLinecap="round"/>
+      <path d="M80 42 C90 35, 105 30, 120 33 C130 35, 135 30, 142 25" strokeLinecap="round"/>
+      <path d="M80 42 C75 34, 68 24, 62 16" strokeLinecap="round"/>
+      <path d="M80 42 C85 34, 92 24, 98 16" strokeLinecap="round"/>
+      <path d="M80 42 C80 35, 80 27, 80 18" strokeLinecap="round"/>
+      <path d="M40 33 C37 28, 40 23, 45 25 C42 27, 40 30, 40 33" fill="#D4A843" fillOpacity="0.3" stroke="none"/>
+      <path d="M120 33 C123 28, 120 23, 115 25 C118 27, 120 30, 120 33" fill="#D4A843" fillOpacity="0.3" stroke="none"/>
+      <circle cx="18" cy="25" r="2.5" fill="#D4A843" stroke="none"/>
+      <circle cx="142" cy="25" r="2.5" fill="#D4A843" stroke="none"/>
+      <circle cx="62" cy="16" r="2" fill="#D4A843" stroke="none"/>
+      <circle cx="98" cy="16" r="2" fill="#D4A843" stroke="none"/>
+      <circle cx="80" cy="18" r="1.8" fill="#D4A843" stroke="none"/>
+      <circle cx="50" cy="30" r="1" fill="#D4A843" stroke="none" opacity="0.6"/>
+      <circle cx="110" cy="30" r="1" fill="#D4A843" stroke="none" opacity="0.6"/>
+      <circle cx="70" cy="24" r="0.8" fill="#D4A843" stroke="none" opacity="0.5"/>
+      <circle cx="90" cy="24" r="0.8" fill="#D4A843" stroke="none" opacity="0.5"/>
+    </svg>
+  );
+}
 
 export default function Hero() {
   const heroRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fading, setFading] = useState(false);
+  const [direction, setDirection] = useState(1);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  const overlayY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const overlayScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % taglines.length);
-        setFading(false);
-      }, 600);
-    }, 4000);
-
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const images = hero.querySelectorAll('.collage-img');
-      images.forEach((img, i) => {
-        const speed = 0.02 + i * 0.015;
-        img.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const current = slides[currentIndex];
 
   return (
     <section id="home" className="hero" ref={heroRef}>
-      <div className="hero-collage">
-        {collageImages.map((img, i) => (
-          <div
-            className={`collage-img ${img.className}`}
-            key={i}
-            style={{ animationDelay: `${i * 0.2}s` }}
+      {/* Two-image collage with transitions */}
+      <div className="hero-collage-duo">
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            className="collage-duo-left"
+            key={`left-${currentIndex}`}
+
+            variants={imageVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
           >
-            <img src={img.src} alt={img.alt} />
-          </div>
-        ))}
+            <img src={current.images[0].src} alt={current.images[0].alt} />
+          </motion.div>
+        </AnimatePresence>
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            className="collage-duo-right"
+            key={`right-${currentIndex}`}
+
+            variants={imageVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ delay: 0.15 }}
+          >
+            <img src={current.images[1].src} alt={current.images[1].alt} />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      <div className="hero-overlay">
-        <div className="hero-frame">
-        <div className="hero-frame-content">
-          <div className="botanical">
-            <svg width="140" height="45" viewBox="0 0 140 45" fill="none" stroke="#CFAF6F" strokeWidth="0.7">
-              <path d="M70 40 C63 34, 50 28, 38 31 C26 34, 20 27, 12 22"/>
-              <path d="M70 40 C77 34, 90 28, 102 31 C114 34, 120 27, 128 22"/>
-              <path d="M70 40 C67 32, 58 22, 52 15"/>
-              <path d="M70 40 C73 32, 82 22, 88 15"/>
-              <path d="M70 40 C70 34, 70 26, 70 18"/>
-              <circle cx="38" cy="31" r="1.5" fill="#CFAF6F" stroke="none"/>
-              <circle cx="102" cy="31" r="1.5" fill="#CFAF6F" stroke="none"/>
-              <circle cx="52" cy="15" r="1.2" fill="#CFAF6F" stroke="none"/>
-              <circle cx="88" cy="15" r="1.2" fill="#CFAF6F" stroke="none"/>
-              <circle cx="70" cy="18" r="1" fill="#CFAF6F" stroke="none"/>
-            </svg>
+      <Suspense fallback={null}>
+        <HeroParticles />
+      </Suspense>
+
+      <motion.div className="hero-overlay" style={{ y: overlayY, scale: overlayScale }}>
+        <motion.div
+          className="hero-frame"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.4, delay: 0.6, ease: "easeOut" }}
+        >
+          <div className="hero-frame-content">
+            <motion.div
+              className="botanical"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+            >
+              <MandalaOrnament />
+            </motion.div>
+
+            <motion.h1
+              className="hero-studio-name"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8, type: "spring", stiffness: 80 }}
+            >
+              Aslam Digital Studio
+            </motion.h1>
+
+            <motion.p
+              className="hero-tagline-static"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
+              Photography & Videography
+            </motion.p>
+
+            <motion.div
+              className="hero-divider"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1, delay: 1.3 }}
+            />
+
+            <div className="hero-tagline">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={currentIndex}
+                  className="hero-rotating-text"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {current.tagline}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+
+            <motion.div
+              className="botanical botanical-bottom"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
+              <MandalaOrnament flip />
+            </motion.div>
           </div>
-
-          <h1 className="hero-studio-name">Aslam Digital Studio</h1>
-          <p className="hero-tagline-static">Photography & Videography</p>
-
-          <div className="hero-divider"></div>
-
-          <div className={`hero-tagline ${fading ? 'fading' : ''}`}>
-            <p className="hero-rotating-text">{taglines[currentIndex]}</p>
-          </div>
-
-          <div className="botanical botanical-bottom">
-            <svg width="140" height="45" viewBox="0 0 140 45" fill="none" stroke="#CFAF6F" strokeWidth="0.7">
-              <path d="M70 5 C63 11, 50 17, 38 14 C26 11, 20 18, 12 23"/>
-              <path d="M70 5 C77 11, 90 17, 102 14 C114 11, 120 18, 128 23"/>
-              <path d="M70 5 C67 13, 58 23, 52 30"/>
-              <path d="M70 5 C73 13, 82 23, 88 30"/>
-              <path d="M70 5 C70 11, 70 19, 70 27"/>
-              <circle cx="38" cy="14" r="1.5" fill="#CFAF6F" stroke="none"/>
-              <circle cx="102" cy="14" r="1.5" fill="#CFAF6F" stroke="none"/>
-              <circle cx="52" cy="30" r="1.2" fill="#CFAF6F" stroke="none"/>
-              <circle cx="88" cy="30" r="1.2" fill="#CFAF6F" stroke="none"/>
-            </svg>
-          </div>
-        </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 
 const services = [
@@ -28,43 +28,40 @@ const services = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.15, ease: "easeOut" }
+  })
+};
+
 export default function Services() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
-    );
-
-    const cards = sectionRef.current?.querySelectorAll('.service-card');
-    cards?.forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.2}s`;
-      observer.observe(card);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="services" className="services" ref={sectionRef}>
+    <section id="services" className="services">
       <SectionHeader
         title="Photography &amp; Videography<br/>For Every Occasion"
         subtitle="From intimate ceremonies to grand celebrations — we craft timeless visuals that let you relive every emotion."
       />
       <div className="services-list">
         {services.map((service, i) => (
-          <div className={`service-card ${i % 2 !== 0 ? 'reverse' : ''}`} key={service.label}>
-            <div className="service-image">
+          <motion.div
+            className={`service-card ${i % 2 !== 0 ? 'reverse' : ''}`}
+            key={service.label}
+            custom={i}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <motion.div
+              className="service-image"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
+            >
               <img src={service.image} alt={service.label} />
-            </div>
+            </motion.div>
             <div className="service-content">
               <h3 className="service-title">{service.label}</h3>
               <div className="service-rule"></div>
@@ -74,9 +71,16 @@ export default function Services() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <a href="#contact" className="service-cta">Book This Service</a>
+              <motion.a
+                href="#contact"
+                className="service-cta"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                Book This Service
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
