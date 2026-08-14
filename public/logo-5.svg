@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="gold5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B872"/>
+      <stop offset="50%" stop-color="#CFAF6F"/>
+      <stop offset="100%" stop-color="#B8954A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Wreath/laurel frame -->
+  <g stroke="url(#gold5)" stroke-width="0.8" fill="none" opacity="0.7">
+    <!-- Left laurel -->
+    <path d="M105 200 C100 180, 110 160, 120 145"/>
+    <path d="M108 195 C95 185, 93 170, 100 155"/>
+    <path d="M120 145 C118 130, 125 115, 138 105"/>
+    <path d="M115 148 C105 138, 103 123, 112 108"/>
+    <path d="M138 105 C140 90, 152 78, 168 72"/>
+    <path d="M133 108 C128 95, 133 82, 148 72"/>
+    <path d="M168 72 C175 62, 188 55, 200 52"/>
+    <path d="M163 75 C165 63, 178 55, 192 52"/>
+
+    <!-- Right laurel -->
+    <path d="M295 200 C300 180, 290 160, 280 145"/>
+    <path d="M292 195 C305 185, 307 170, 300 155"/>
+    <path d="M280 145 C282 130, 275 115, 262 105"/>
+    <path d="M285 148 C295 138, 297 123, 288 108"/>
+    <path d="M262 105 C260 90, 248 78, 232 72"/>
+    <path d="M267 108 C272 95, 267 82, 252 72"/>
+    <path d="M232 72 C225 62, 212 55, 200 52"/>
+    <path d="M237 75 C235 63, 222 55, 208 52"/>
+
+    <!-- Leaf tips -->
+    <circle cx="100" cy="155" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="112" cy="108" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="148" cy="72" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="300" cy="155" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="288" cy="108" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="252" cy="72" r="1.5" fill="url(#gold5)" stroke="none"/>
+
+    <!-- Bottom laurel tie -->
+    <path d="M185 340 C192 345, 196 350, 200 355 C204 350, 208 345, 215 340"/>
+    <path d="M190 338 C195 342, 198 346, 200 350 C202 346, 205 342, 210 338"/>
+  </g>
+
+  <!-- Bottom laurel leaves -->
+  <g stroke="url(#gold5)" stroke-width="0.8" fill="none" opacity="0.7">
+    <path d="M105 200 C100 220, 110 240, 120 255"/>
+    <path d="M108 205 C95 215, 93 230, 100 245"/>
+    <path d="M120 255 C118 270, 125 285, 138 295"/>
+    <path d="M115 252 C105 262, 103 277, 112 292"/>
+    <path d="M138 295 C140 310, 152 322, 168 328"/>
+    <path d="M133 292 C128 305, 133 318, 148 328"/>
+    <path d="M168 328 C175 335, 188 340, 200 342"/>
+
+    <path d="M295 200 C300 220, 290 240, 280 255"/>
+    <path d="M292 205 C305 215, 307 230, 300 245"/>
+    <path d="M280 255 C282 270, 275 285, 262 295"/>
+    <path d="M285 252 C295 262, 297 277, 288 292"/>
+    <path d="M262 295 C260 310, 248 322, 232 328"/>
+    <path d="M267 292 C272 305, 267 318, 252 328"/>
+    <path d="M232 328 C225 335, 212 340, 200 342"/>
+
+    <circle cx="100" cy="245" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="112" cy="292" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="148" cy="328" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="300" cy="245" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="288" cy="292" r="1.5" fill="url(#gold5)" stroke="none"/>
+    <circle cx="252" cy="328" r="1.5" fill="url(#gold5)" stroke="none"/>
+  </g>
+
+  <!-- Center content -->
+  <!-- Small camera icon -->
+  <g fill="none" stroke="#4A403A" stroke-width="1" opacity="0.4">
+    <rect x="185" y="120" width="30" height="22" rx="3"/>
+    <circle cx="200" cy="131" r="7"/>
+    <rect x="192" y="116" width="10" height="5" rx="1.5"/>
+  </g>
+
+  <!-- Main "A" monogram large -->
+  <text x="200" y="215" text-anchor="middle" font-family="serif" font-size="90" fill="#4A403A" font-weight="300" font-style="italic">A</text>
+
+  <!-- Horizontal lines -->
+  <line x1="145" y1="235" x2="185" y2="235" stroke="url(#gold5)" stroke-width="0.8"/>
+  <line x1="215" y1="235" x2="255" y2="235" stroke="url(#gold5)" stroke-width="0.8"/>
+  <circle cx="200" cy="235" r="2.5" fill="url(#gold5)"/>
+
+  <!-- Studio name -->
+  <text x="200" y="265" text-anchor="middle" font-family="serif" font-size="13" letter-spacing="5" fill="#4A403A">ASLAM</text>
+  <text x="200" y="285" text-anchor="middle" font-family="serif" font-size="9" letter-spacing="3.5" fill="#8A7B6D">DIGITAL STUDIO</text>
+  <text x="200" y="305" text-anchor="middle" font-family="serif" font-size="7" letter-spacing="2" fill="#8A7B6D">PHOTOGRAPHY &amp; VIDEOGRAPHY</text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="gold4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B872"/>
+      <stop offset="50%" stop-color="#CFAF6F"/>
+      <stop offset="100%" stop-color="#B8954A"/>
+    </linearGradient>
+    <radialGradient id="lensGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#CFAF6F" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#CFAF6F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Minimal circle -->
+  <circle cx="200" cy="185" r="120" fill="url(#lensGlow)" stroke="url(#gold4)" stroke-width="1.5"/>
+
+  <!-- Aperture ring marks -->
+  <g stroke="url(#gold4)" stroke-width="0.8" opacity="0.3">
+    <line x1="200" y1="63" x2="200" y2="73"/>
+    <line x1="200" y1="297" x2="200" y2="307"/>
+    <line x1="78" y1="185" x2="88" y2="185"/>
+    <line x1="312" y1="185" x2="322" y2="185"/>
+    <line x1="115" y1="100" x2="122" y2="107"/>
+    <line x1="278" y1="263" x2="285" y2="270"/>
+    <line x1="285" y1="100" x2="278" y2="107"/>
+    <line x1="122" y1="263" x2="115" y2="270"/>
+  </g>
+
+  <!-- Film strip accent (left) -->
+  <g fill="none" stroke="url(#gold4)" stroke-width="0.6" opacity="0.3">
+    <rect x="58" y="140" width="12" height="90" rx="1"/>
+    <line x1="58" y1="150" x2="70" y2="150"/>
+    <line x1="58" y1="160" x2="70" y2="160"/>
+    <line x1="58" y1="170" x2="70" y2="170"/>
+    <line x1="58" y1="180" x2="70" y2="180"/>
+    <line x1="58" y1="190" x2="70" y2="190"/>
+    <line x1="58" y1="200" x2="70" y2="200"/>
+    <line x1="58" y1="210" x2="70" y2="210"/>
+    <line x1="58" y1="220" x2="70" y2="220"/>
+  </g>
+
+  <!-- Film strip accent (right) -->
+  <g fill="none" stroke="url(#gold4)" stroke-width="0.6" opacity="0.3">
+    <rect x="330" y="140" width="12" height="90" rx="1"/>
+    <line x1="330" y1="150" x2="342" y2="150"/>
+    <line x1="330" y1="160" x2="342" y2="160"/>
+    <line x1="330" y1="170" x2="342" y2="170"/>
+    <line x1="330" y1="180" x2="342" y2="180"/>
+    <line x1="330" y1="190" x2="342" y2="190"/>
+    <line x1="330" y1="200" x2="342" y2="200"/>
+    <line x1="330" y1="210" x2="342" y2="210"/>
+    <line x1="330" y1="220" x2="342" y2="220"/>
+  </g>
+
+  <!-- Large stylized "ADS" monogram -->
+  <g fill="#4A403A">
+    <!-- A -->
+    <path d="M148 220 L170 145 C172 138, 174 135, 177 135 C180 135, 182 138, 184 145 L206 220 L198 220 L192 200 L162 200 L156 220 Z M165 193 L189 193 L177 155 Z"/>
+    <!-- D -->
+    <path d="M210 220 L210 145 L228 145 C248 145, 258 160, 258 182 C258 204, 248 220, 228 220 Z M218 152 L218 213 L227 213 C243 213, 250 200, 250 182 C250 164, 243 152, 227 152 Z" opacity="0.7"/>
+  </g>
+
+  <!-- Underline swoosh -->
+  <path d="M135 235 C160 230, 185 240, 200 237 C215 234, 240 242, 265 235" fill="none" stroke="url(#gold4)" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Text below circle -->
+  <text x="200" y="330" text-anchor="middle" font-family="serif" font-size="14" letter-spacing="6" fill="#4A403A">ASLAM</text>
+  <text x="200" y="350" text-anchor="middle" font-family="serif" font-size="9" letter-spacing="4" fill="#8A7B6D">DIGITAL STUDIO</text>
+  <text x="200" y="370" text-anchor="middle" font-family="serif" font-size="7" letter-spacing="2" fill="#8A7B6D">Est. 2024</text>
+
+  <!-- Small diamond -->
+  <rect x="197" y="315" width="6" height="6" transform="rotate(45 200 318)" fill="url(#gold4)"/>
+</svg>

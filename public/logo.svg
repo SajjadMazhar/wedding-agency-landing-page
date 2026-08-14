@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B872"/>
+      <stop offset="50%" stop-color="#CFAF6F"/>
+      <stop offset="100%" stop-color="#B8954A"/>
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4A403A"/>
+      <stop offset="100%" stop-color="#3A302A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer circle frame -->
+  <circle cx="200" cy="200" r="185" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+  <circle cx="200" cy="200" r="178" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+  <!-- Camera lens aperture blades (subtle, behind monogram) -->
+  <g opacity="0.12" stroke="url(#goldGrad)" stroke-width="1" fill="none">
+    <path d="M200 80 L220 130 L200 120 Z"/>
+    <path d="M200 80 L180 130 L200 120 Z"/>
+    <path d="M280 140 L240 160 L250 145 Z"/>
+    <path d="M320 200 L270 190 L275 200 Z"/>
+    <path d="M280 260 L240 240 L250 255 Z"/>
+    <path d="M200 320 L220 270 L200 280 Z"/>
+    <path d="M200 320 L180 270 L200 280 Z"/>
+    <path d="M120 260 L160 240 L150 255 Z"/>
+    <path d="M80 200 L130 190 L125 200 Z"/>
+    <path d="M120 140 L160 160 L150 145 Z"/>
+  </g>
+
+  <!-- Inner lens circle -->
+  <circle cx="200" cy="200" r="95" fill="none" stroke="url(#goldGrad)" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Monogram "A" - elegant script style -->
+  <g fill="url(#darkGrad)">
+    <!-- Main letter A stroke -->
+    <path d="M160 270 C165 250, 175 220, 185 195 C192 175, 198 160, 200 148 C202 160, 208 175, 215 195 C225 220, 235 250, 240 270 C238 270, 233 270, 230 270 C225 255, 218 235, 212 218 L188 218 C182 235, 175 255, 170 270 C167 270, 163 270, 160 270 Z M192 208 L208 208 C204 195, 201 185, 200 178 C199 185, 196 195, 192 208 Z"/>
+  </g>
+
+  <!-- Decorative swash under A -->
+  <path d="M150 280 C170 275, 190 285, 200 282 C210 279, 230 288, 250 280" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M165 288 C180 284, 195 290, 200 288 C205 286, 220 292, 235 286" fill="none" stroke="url(#goldGrad)" stroke-width="0.6" stroke-linecap="round"/>
+
+  <!-- Small diamond accents -->
+  <rect x="197" y="130" width="6" height="6" transform="rotate(45 200 133)" fill="url(#goldGrad)"/>
+  <circle cx="145" cy="200" r="2" fill="url(#goldGrad)" opacity="0.6"/>
+  <circle cx="255" cy="200" r="2" fill="url(#goldGrad)" opacity="0.6"/>
+
+  <!-- Top botanical ornament -->
+  <g stroke="url(#goldGrad)" stroke-width="0.8" fill="none" opacity="0.7">
+    <path d="M185 105 C190 100, 195 95, 200 88 C205 95, 210 100, 215 105"/>
+    <path d="M192 108 C196 103, 198 98, 200 93 C202 98, 204 103, 208 108"/>
+    <circle cx="200" cy="86" r="1.5" fill="url(#goldGrad)" stroke="none"/>
+  </g>
+
+  <!-- Bottom text: "DIGITAL STUDIO" -->
+  <text x="200" y="310" text-anchor="middle" font-family="serif" font-size="13" letter-spacing="5" fill="#4A403A" font-weight="300">DIGITAL STUDIO</text>
+
+  <!-- Bottom text: "PHOTOGRAPHY & VIDEOGRAPHY" -->
+  <text x="200" y="330" text-anchor="middle" font-family="serif" font-size="8" letter-spacing="3" fill="#8A7B6D" font-weight="300">PHOTOGRAPHY &amp; VIDEOGRAPHY</text>
+
+  <!-- Corner ornaments -->
+  <g stroke="url(#goldGrad)" stroke-width="0.5" fill="none" opacity="0.4">
+    <path d="M55 55 L75 55 M55 55 L55 75"/>
+    <path d="M345 55 L325 55 M345 55 L345 75"/>
+    <path d="M55 345 L75 345 M55 345 L55 325"/>
+    <path d="M345 345 L325 345 M345 345 L345 325"/>
+  </g>
+</svg>
