@@ -42,6 +42,13 @@ export default function Footer() {
             </svg>
           </a>
         </div>
+        <div className="footer-contact">
+          <a href="tel:+919007523569">+91 90075 23569</a>
+          <span className="footer-contact-sep">·</span>
+          <a href="tel:+919681385243">+91 96813 85243</a>
+          <span className="footer-contact-sep">·</span>
+          <a href="https://wa.me/919007523569" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
         <p className="footer-copy">&copy; 2026 Aslam Digital Studio. All rights reserved.</p>
       </motion.div>
     </footer>
