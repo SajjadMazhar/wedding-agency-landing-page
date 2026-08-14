@@ -26,24 +26,24 @@ const imageVariants = {
 
 function MandalaOrnament({ flip }) {
   return (
-    <svg width="160" height="50" viewBox="0 0 160 50" fill="none" stroke="#D4A843" strokeWidth="0.8"
+    <svg width="160" height="50" viewBox="0 0 160 50" fill="none" stroke="currentColor" strokeWidth="0.8"
       style={{ transform: flip ? 'rotate(180deg)' : 'none' }}>
       <path d="M80 42 C70 35, 55 30, 40 33 C30 35, 25 30, 18 25" strokeLinecap="round"/>
       <path d="M80 42 C90 35, 105 30, 120 33 C130 35, 135 30, 142 25" strokeLinecap="round"/>
       <path d="M80 42 C75 34, 68 24, 62 16" strokeLinecap="round"/>
       <path d="M80 42 C85 34, 92 24, 98 16" strokeLinecap="round"/>
       <path d="M80 42 C80 35, 80 27, 80 18" strokeLinecap="round"/>
-      <path d="M40 33 C37 28, 40 23, 45 25 C42 27, 40 30, 40 33" fill="#D4A843" fillOpacity="0.3" stroke="none"/>
-      <path d="M120 33 C123 28, 120 23, 115 25 C118 27, 120 30, 120 33" fill="#D4A843" fillOpacity="0.3" stroke="none"/>
-      <circle cx="18" cy="25" r="2.5" fill="#D4A843" stroke="none"/>
-      <circle cx="142" cy="25" r="2.5" fill="#D4A843" stroke="none"/>
-      <circle cx="62" cy="16" r="2" fill="#D4A843" stroke="none"/>
-      <circle cx="98" cy="16" r="2" fill="#D4A843" stroke="none"/>
-      <circle cx="80" cy="18" r="1.8" fill="#D4A843" stroke="none"/>
-      <circle cx="50" cy="30" r="1" fill="#D4A843" stroke="none" opacity="0.6"/>
-      <circle cx="110" cy="30" r="1" fill="#D4A843" stroke="none" opacity="0.6"/>
-      <circle cx="70" cy="24" r="0.8" fill="#D4A843" stroke="none" opacity="0.5"/>
-      <circle cx="90" cy="24" r="0.8" fill="#D4A843" stroke="none" opacity="0.5"/>
+      <path d="M40 33 C37 28, 40 23, 45 25 C42 27, 40 30, 40 33" fill="currentColor" fillOpacity="0.3" stroke="none"/>
+      <path d="M120 33 C123 28, 120 23, 115 25 C118 27, 120 30, 120 33" fill="currentColor" fillOpacity="0.3" stroke="none"/>
+      <circle cx="18" cy="25" r="2.5" fill="currentColor" stroke="none"/>
+      <circle cx="142" cy="25" r="2.5" fill="currentColor" stroke="none"/>
+      <circle cx="62" cy="16" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="98" cy="16" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="80" cy="18" r="1.8" fill="currentColor" stroke="none"/>
+      <circle cx="50" cy="30" r="1" fill="currentColor" stroke="none" opacity="0.6"/>
+      <circle cx="110" cy="30" r="1" fill="currentColor" stroke="none" opacity="0.6"/>
+      <circle cx="70" cy="24" r="0.8" fill="currentColor" stroke="none" opacity="0.5"/>
+      <circle cx="90" cy="24" r="0.8" fill="currentColor" stroke="none" opacity="0.5"/>
     </svg>
   );
 }

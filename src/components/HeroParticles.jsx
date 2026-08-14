@@ -2,8 +2,13 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTheme } from '../context/ThemeContext.jsx';
 
-function GoldParticles({ count = 300 }) {
+function getAccent() {
+  return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#D4A843';
+}
+
+function GoldParticles({ count = 300, accent }) {
   const ref = useRef();
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -34,7 +39,7 @@ function GoldParticles({ count = 300 }) {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#D4A843"
+        color={accent}
         size={0.035}
         sizeAttenuation
         depthWrite={false}
@@ -45,7 +50,7 @@ function GoldParticles({ count = 300 }) {
   );
 }
 
-function MandalaRing() {
+function MandalaRing({ accent }) {
   const ref = useRef();
   const geometry = useMemo(() => new THREE.TorusKnotGeometry(2.2, 0.02, 200, 8, 3, 5), []);
 
@@ -57,12 +62,15 @@ function MandalaRing() {
 
   return (
     <mesh ref={ref} geometry={geometry}>
-      <meshBasicMaterial color="#D4A843" wireframe opacity={0.15} transparent />
+      <meshBasicMaterial color={accent} wireframe opacity={0.15} transparent />
     </mesh>
   );
 }
 
 export default function HeroParticles() {
+  const { theme } = useTheme();
+  const accent = getAccent();
+
   return (
     <div className="hero-canvas">
       <Canvas
@@ -71,8 +79,8 @@ export default function HeroParticles() {
         dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.5} />
-        <GoldParticles count={250} />
-        <MandalaRing />
+        <GoldParticles count={250} accent={accent} />
+        <MandalaRing accent={accent} />
       </Canvas>
     </div>
   );

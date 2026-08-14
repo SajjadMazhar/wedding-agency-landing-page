@@ -11,10 +11,11 @@ export default function Footer() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="footer-logo">
+        <a href="#home" className="footer-logo">
+          <img src="/logo.png" alt="Aslam Digital Studio" className="footer-logo-img" />
           <span className="logo-script">Aslam Digital Studio</span>
           <span className="logo-sub">Photography & Videography</span>
-        </div>
+        </a>
         <div className="footer-links">
           <a href="#home">Home</a>
           <a href="#services">Services</a>

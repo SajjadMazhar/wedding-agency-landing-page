@@ -23,6 +23,15 @@
   --font-body: 'Jost', sans-serif;
 }
 
+html[data-theme="dark"] {
+  --bg-main:        #141010;
+  --bg-outer:       #0A0607;
+  --text-primary:   #F0EAE2;
+  --text-secondary: #A89080;
+  --white-warm:     #1E1714;
+  --border-color:   rgba(212, 168, 67, 0.15);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -121,6 +130,15 @@ img {
   width: auto;
   object-fit: contain;
   flex-shrink: 0;
+  transition: filter 0.5s ease;
+}
+
+.navbar.past-hero .nav-logo-img,
+.navbar.scrolled .nav-logo-img {
+  background: #0d3166;
+  border-radius: 8px;
+  padding: 3px 6px;
+  box-sizing: content-box;
 }
 
 .nav-center {
@@ -369,6 +387,16 @@ img {
   text-align: center;
   border: 2px solid rgba(212, 168, 67, 0.7);
   position: relative;
+  animation: frameGlow 5s ease-in-out infinite;
+}
+
+@keyframes frameGlow {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(212, 168, 67, 0.12), inset 0 0 18px rgba(212, 168, 67, 0.04);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(212, 168, 67, 0.32), inset 0 0 30px rgba(212, 168, 67, 0.09);
+  }
 }
 
 .hero-frame::before,
@@ -410,6 +438,7 @@ img {
   margin: 12px 0;
   opacity: 0;
   animation: fadeUp 0.8s ease-out 1.2s forwards;
+  color: var(--accent);
 }
 
 @keyframes fadeUp {
@@ -423,8 +452,14 @@ img {
   font-weight: 400;
   color: var(--white-warm);
   line-height: 1.1;
-  text-shadow: 0 3px 25px rgba(0, 0, 0, 0.25);
   margin-bottom: 8px;
+  text-shadow:
+    1px 1px 0 rgba(175, 108, 0, 0.75),
+    2px 2px 0 rgba(152, 90, 0, 0.6),
+    3px 3px 0 rgba(128, 74, 0, 0.45),
+    4px 4px 0 rgba(100, 56, 0, 0.3),
+    5px 5px 0 rgba(72, 38, 0, 0.18),
+    9px 9px 24px rgba(0, 0, 0, 0.55);
 }
 
 .hero-tagline-static {
@@ -434,16 +469,35 @@ img {
   color: var(--white-warm);
   letter-spacing: 4px;
   text-transform: uppercase;
-  opacity: 0.85;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0.92;
+  text-shadow:
+    0 0 22px rgba(212, 168, 67, 0.45),
+    0 1px 8px rgba(0, 0, 0, 0.25);
 }
 
 .hero-divider {
-  width: 50px;
   height: 1px;
-  background: var(--accent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   margin: 20px auto;
-  opacity: 0.7;
+  position: relative;
+  animation: dividerPulse 4s ease-in-out infinite;
+}
+
+@keyframes dividerPulse {
+  0%, 100% { width: 55px; opacity: 0.65; }
+  50%       { width: 95px; opacity: 1; }
+}
+
+.hero-divider::before {
+  content: '✦';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--accent);
+  font-size: 9px;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(212, 168, 67, 0.7);
 }
 
 .hero-tagline {
@@ -475,7 +529,8 @@ img {
 
 .hero-social a:hover {
   color: var(--accent);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 6px rgba(212, 168, 67, 0.65));
 }
 
 .hero-rotating-text {
@@ -484,6 +539,7 @@ img {
   font-weight: 300;
   font-style: italic;
   color: var(--white-warm);
+  text-shadow: 0 0 20px rgba(212, 168, 67, 0.3), 0 1px 8px rgba(0, 0, 0, 0.18);
   letter-spacing: 0.5px;
   opacity: 0.9;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
@@ -498,6 +554,7 @@ img {
 .ornament {
   margin-bottom: 20px;
   opacity: 0.8;
+  color: var(--accent);
 }
 
 .section-title {
@@ -1144,6 +1201,17 @@ img {
 
 .footer-logo {
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo-img {
+  height: 170px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
 }
 
 .footer-logo .logo-script {
@@ -1218,6 +1286,85 @@ img {
   font-size: 11px;
   color: rgba(255, 253, 249, 0.5);
   letter-spacing: 1px;
+}
+
+/* ── Theme toggle button ───────────────────────────── */
+.btn-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: var(--white-warm);
+  cursor: pointer;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.navbar.past-hero .btn-theme-toggle {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.btn-theme-toggle:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-main);
+}
+
+/* ── Dark mode overrides for hardcoded rgba values ─── */
+html[data-theme="dark"] .navbar.scrolled,
+html[data-theme="dark"] .navbar.past-hero {
+  background: rgba(20, 16, 16, 0.97);
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .navbar.past-hero .nav-logo-img,
+html[data-theme="dark"] .navbar.scrolled .nav-logo-img {
+  background: transparent;
+  padding: 0;
+}
+
+/* Hero text — always on a dark background, always stays white */
+html[data-theme="dark"] .hero-studio-name,
+html[data-theme="dark"] .hero-tagline-static,
+html[data-theme="dark"] .hero-rotating-text {
+  color: #FFFDF9;
+}
+
+/* Navbar over hero in dark mode — keep white since bg is always dark */
+html[data-theme="dark"] .navbar:not(.past-hero) .logo-script,
+html[data-theme="dark"] .navbar:not(.past-hero) .logo-sub {
+  color: rgba(255, 253, 249, 0.9);
+}
+
+html[data-theme="dark"] .navbar:not(.past-hero) .btn-nav {
+  color: #FFFDF9;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+html[data-theme="dark"] .navbar:not(.past-hero) .btn-theme-toggle {
+  color: #FFFDF9;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+html[data-theme="dark"] .hero-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme="dark"] .gallery-modal {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+html[data-theme="dark"] .gallery-modal-content {
+  background: var(--white-warm);
+}
+
+html[data-theme="dark"] .lightbox {
+  background: rgba(8, 6, 6, 0.97);
 }
 
 /* ── Responsive ────────────────────────────────────── */
