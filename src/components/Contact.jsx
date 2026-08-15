@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import SectionHeader from './SectionHeader';
+import ContactParticles from './ContactParticles';
 
 const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || '';
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
@@ -49,6 +50,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact">
+      <ContactParticles />
       <div className="contact-inner">
         <SectionHeader
           title="Let's Tell Your Story"

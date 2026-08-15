@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeader from './SectionHeader';
+import GalleryParticles from './GalleryParticles';
 import galleryImages from '../data/galleryImages';
 
 const VISIBLE_LIMIT = 10;
@@ -47,6 +48,7 @@ export default function Gallery() {
 
   return (
     <section id="gallery" className="gallery">
+      <GalleryParticles />
       <SectionHeader
         title="Our Work"
         subtitle="A collection of weddings, celebrations, and events we've had the privilege to capture on camera."
@@ -91,33 +93,74 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4 }}
           >
             <motion.div
               className="gallery-modal-content"
               onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, type: "spring", stiffness: 200 }}
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             >
-              <button className="modal-close" onClick={() => setModalOpen(false)}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-              </button>
-              <h3 className="modal-title">All Photos</h3>
+              <div className="modal-header">
+                <motion.div
+                  className="modal-header-inner"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                >
+                  <div className="modal-ornament">
+                    <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
+                      <path d="M0 10h45M75 10h45" stroke="currentColor" strokeWidth="0.5" opacity="0.6"/>
+                      <path d="M52 10l8-8 8 8-8 8z" stroke="currentColor" strokeWidth="0.8" fill="none"/>
+                      <circle cx="60" cy="10" r="2" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                  </div>
+                  <h3 className="modal-title">Our Complete Collection</h3>
+                  <p className="modal-subtitle">{galleryImages.length} moments captured with love</p>
+                </motion.div>
+                <motion.button
+                  className="modal-close"
+                  onClick={() => setModalOpen(false)}
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  transition={{ delay: 0.4 }}
+                  whileHover={{ rotate: 90, scale: 1.1 }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </motion.button>
+              </div>
+
               <div className="modal-grid">
                 {galleryImages.map((img, i) => (
                   <motion.div
-                    className="modal-grid-item"
-                    key={img.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.03 }}
+                    className={`modal-grid-item${img.size === 'tall' ? ' modal-tall' : ''}${img.size === 'wide' ? ' modal-wide' : ''}`}
+                    key={`modal-${i}`}
+                    initial={{ opacity: 0, scale: 0.8, y: 40 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ delay: 0.2 + i * 0.04, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    whileHover={{ scale: 1.03, zIndex: 5 }}
                     onClick={() => { setModalOpen(false); openLightbox(i); }}
                   >
                     <img src={img.src} alt={img.alt} loading="lazy" />
+                    <motion.div
+                      className="modal-item-overlay"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className="modal-item-alt">{img.alt}</span>
+                      <span className="modal-item-view">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <circle cx="11" cy="11" r="8"/>
+                          <path d="m21 21-4.35-4.35"/>
+                          <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                      </span>
+                    </motion.div>
                   </motion.div>
                 ))}
               </div>
