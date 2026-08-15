@@ -1,6 +1,14 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import SectionHeader from './SectionHeader';
+
+// const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || '';
+// const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+// const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || '';
+const SERVICE_ID  = "service_axr3kfv";
+const TEMPLATE_ID = "template_weubj1g";
+const PUBLIC_KEY  = "ErLUcgzv4WIi09d7d";
 
 const formVariants = {
   hidden: { opacity: 0 },
@@ -16,16 +24,30 @@ const fieldVariants = {
 };
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef(null);
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      e.target.reset();
-    }, 3000);
+    setStatus('sending');
+    try {
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, { publicKey: PUBLIC_KEY });
+      setStatus('success');
+      formRef.current.reset();
+      setTimeout(() => setStatus('idle'), 4000);
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
+
+  const btnLabel = {
+    idle:    'Send Inquiry',
+    sending: 'Sending…',
+    success: 'Message Sent!',
+    error:   'Failed — Try Again',
+  }[status];
 
   return (
     <section id="contact" className="contact">
@@ -57,6 +79,7 @@ export default function Contact() {
         </motion.div>
 
         <motion.form
+          ref={formRef}
           className="contact-form"
           onSubmit={handleSubmit}
           variants={formVariants}
@@ -80,22 +103,22 @@ export default function Contact() {
               <input type="tel" id="phone" name="phone" />
             </div>
             <div className="form-group">
-              <label htmlFor="event-type">Event Type</label>
-              <select id="event-type" name="event-type">
+              <label htmlFor="event_type">Event Type</label>
+              <select id="event_type" name="event_type">
                 <option value="">Select...</option>
-                <option value="wedding-photo">Wedding Photography</option>
-                <option value="wedding-video">Wedding Videography</option>
-                <option value="wedding-both">Wedding Photo + Video</option>
-                <option value="anniversary">Anniversary</option>
-                <option value="corporate">Corporate Event</option>
-                <option value="birthday">Birthday</option>
-                <option value="other">Other</option>
+                <option value="Wedding Photography">Wedding Photography</option>
+                <option value="Wedding Videography">Wedding Videography</option>
+                <option value="Wedding Photo + Video">Wedding Photo + Video</option>
+                <option value="Anniversary">Anniversary</option>
+                <option value="Corporate Event">Corporate Event</option>
+                <option value="Birthday">Birthday</option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </motion.div>
           <motion.div className="form-group full" variants={fieldVariants}>
-            <label htmlFor="event-date">Event Date</label>
-            <input type="date" id="event-date" name="event-date" />
+            <label htmlFor="event_date">Event Date</label>
+            <input type="date" id="event_date" name="event_date" />
           </motion.div>
           <motion.div className="form-group full" variants={fieldVariants}>
             <label htmlFor="message">Tell Us About Your Event</label>
@@ -103,12 +126,18 @@ export default function Contact() {
           </motion.div>
           <motion.button
             type="submit"
-            className={`btn-submit${submitted ? ' success' : ''}`}
+            className={`btn-submit${status === 'success' ? ' success' : ''}${status === 'error' ? ' error' : ''}`}
             variants={fieldVariants}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: status === 'sending' ? 1 : 1.04 }}
+            whileTap={{ scale: status === 'sending' ? 1 : 0.97 }}
+            disabled={status === 'sending'}
           >
-            {submitted ? 'Thank you!' : 'Send Inquiry'}
+            {status === 'sending' && (
+              <svg className="btn-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+            )}
+            {btnLabel}
           </motion.button>
         </motion.form>
       </div>

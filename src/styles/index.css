@@ -34,6 +34,38 @@ html[data-theme="dark"] {
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #D4A843 rgba(212, 168, 67, 0.1);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(212, 168, 67, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4A843, #b8882a);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e8c45a, #D4A843);
+}
+
+html[data-theme="dark"] {
+  scrollbar-color: #D4A843 rgba(212, 168, 67, 0.06);
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: rgba(212, 168, 67, 0.04);
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c49a30, #a07820);
 }
 
 body {
@@ -722,6 +754,23 @@ img {
 .gallery {
   padding: 140px 40px;
   background: var(--white-warm);
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/gallery-bg.png') center / cover no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gallery > * {
+  position: relative;
+  z-index: 1;
 }
 
 .gallery-grid {
@@ -736,17 +785,54 @@ img {
 .gallery-item {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--border-color);
   cursor: pointer;
+  border: 3px solid transparent;
+  border-image: linear-gradient(135deg, #b8882a 0%, #ffe98a 30%, #D4A843 50%, #ffe98a 70%, #b8882a 100%) 1;
+  box-shadow:
+    0 0 0 1px rgba(212, 168, 67, 0.25),
+    0 0 0 5px rgba(212, 168, 67, 0.08),
+    0 8px 32px rgba(212, 168, 67, 0.22),
+    inset 0 0 40px rgba(0, 0, 0, 0.28);
+  transition: box-shadow 0.4s ease;
 }
 
-.gallery-item.tall {
-  grid-row: span 2;
+/* Inner dashed frame */
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed rgba(212, 168, 67, 0.5);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.gallery-item.wide {
-  grid-column: span 2;
+/* Corner L-accents with diamond dots */
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    /* Diamond dots at corners */
+    linear-gradient(45deg, #D4A843 50%, transparent 50%) 0    0    / 8px 8px no-repeat,
+    linear-gradient(135deg, #D4A843 50%, transparent 50%) 100% 0    / 8px 8px no-repeat,
+    linear-gradient(315deg, #D4A843 50%, transparent 50%) 0    100% / 8px 8px no-repeat,
+    linear-gradient(225deg, #D4A843 50%, transparent 50%) 100% 100% / 8px 8px no-repeat,
+    /* L arms — horizontal */
+    linear-gradient(#ffe98a, #D4A843) 0    0    / 22px 3px no-repeat,
+    linear-gradient(#ffe98a, #D4A843) 100% 0    / 22px 3px no-repeat,
+    linear-gradient(#D4A843, #ffe98a) 0    100% / 22px 3px no-repeat,
+    linear-gradient(#D4A843, #ffe98a) 100% 100% / 22px 3px no-repeat,
+    /* L arms — vertical */
+    linear-gradient(to bottom, #ffe98a, #D4A843) 0    0    / 3px 22px no-repeat,
+    linear-gradient(to bottom, #ffe98a, #D4A843) 100% 0    / 3px 22px no-repeat,
+    linear-gradient(to top,   #ffe98a, #D4A843) 0    100% / 3px 22px no-repeat,
+    linear-gradient(to top,   #ffe98a, #D4A843) 100% 100% / 3px 22px no-repeat;
 }
+
+.gallery-item.tall { grid-row: span 2; }
+.gallery-item.wide { grid-column: span 2; }
 
 .gallery-item img {
   width: 100%;
@@ -755,13 +841,22 @@ img {
   transition: transform 0.6s ease;
 }
 
-.gallery-item:hover img {
-  transform: scale(1.04);
+.gallery-item:hover img { transform: scale(1.04); }
+
+.gallery-item:hover {
+  box-shadow:
+    0 0 0 1px rgba(212, 168, 67, 0.5),
+    0 0 0 5px rgba(212, 168, 67, 0.12),
+    0 0 40px rgba(212, 168, 67, 0.55),
+    inset 0 0 40px rgba(0, 0, 0, 0.2);
 }
 
-.gallery-item {
-  cursor: pointer;
+@keyframes frameGlint {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
+
+.gallery-item:hover::before { animation: frameGlint 1.5s ease-in-out infinite; }
 
 /* Show More Button */
 .gallery-more {
@@ -1050,9 +1145,23 @@ img {
 .contact {
   padding: 140px 40px;
   background: var(--white-warm);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/contact-bg.png') center / cover no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .contact-inner {
+  position: relative;
+  z-index: 1;
   max-width: 700px;
   margin: 0 auto;
 }
@@ -1150,7 +1259,10 @@ img {
 }
 
 .btn-submit {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
   font-family: var(--font-body);
   font-size: 12px;
@@ -1173,6 +1285,25 @@ img {
 .btn-submit.success {
   background: var(--accent);
   color: var(--white-warm);
+}
+
+.btn-submit.error {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff;
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-spinner {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Footer */
@@ -1341,6 +1472,10 @@ html[data-theme="dark"] .navbar:not(.past-hero) .logo-sub {
   color: rgba(255, 253, 249, 0.9);
 }
 
+html[data-theme="dark"] .nav-links-hero a:hover {
+  color: #FFFDF9;
+}
+
 html[data-theme="dark"] .navbar:not(.past-hero) .btn-nav {
   color: #FFFDF9;
   border-color: rgba(255, 255, 255, 0.4);
@@ -1353,6 +1488,29 @@ html[data-theme="dark"] .navbar:not(.past-hero) .btn-theme-toggle {
 
 html[data-theme="dark"] .hero-overlay {
   background: rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme="dark"] .form-group input,
+html[data-theme="dark"] .form-group select,
+html[data-theme="dark"] .form-group textarea {
+  background: var(--white-warm);
+  color: var(--text-primary);
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] .form-group select option {
+  background: var(--white-warm);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .contact::before {
+  background-image: url('/contact-bg-dark.png');
+  opacity: 0.03;
+}
+
+html[data-theme="dark"] .gallery::before {
+  background-image: url('/gallery-bg-dark.png');
+  opacity: 0.03;
 }
 
 html[data-theme="dark"] .gallery-modal {

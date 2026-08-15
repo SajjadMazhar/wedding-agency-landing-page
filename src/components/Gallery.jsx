@@ -65,7 +65,7 @@ export default function Gallery() {
             transition={{ duration: 0.3 }}
             onClick={() => openLightbox(i)}
           >
-            <img src={img.src} alt={img.alt} />
+            <img src={img.src} alt={img.alt} loading="lazy" />
           </motion.div>
         ))}
       </div>
@@ -117,7 +117,7 @@ export default function Gallery() {
                     transition={{ delay: i * 0.03 }}
                     onClick={() => { setModalOpen(false); openLightbox(i); }}
                   >
-                    <img src={img.src} alt={img.alt} />
+                    <img src={img.src} alt={img.alt} loading="lazy" />
                   </motion.div>
                 ))}
               </div>
@@ -153,7 +153,7 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <img src={galleryImages[lightboxIndex].src} alt={galleryImages[lightboxIndex].alt} />
+              <img src={galleryImages[lightboxIndex].fullSrc || galleryImages[lightboxIndex].src} alt={galleryImages[lightboxIndex].alt} />
             </motion.div>
             <button className="lightbox-next" onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % galleryImages.length); }}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

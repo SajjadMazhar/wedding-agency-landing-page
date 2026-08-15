@@ -1,105 +1,145 @@
-/**
- * Gallery images configuration.
- *
- * TO ADD: Push a new object with { id, src, alt, size }.
- * TO REMOVE: Delete the object from the array.
- *
- * size options: "standard" | "tall" | "wide"
- *
- * Only the first 10 images show on the page.
- * If more than 10 exist, a "View All Photos" button appears
- * that opens a popup with the full gallery + lightbox viewer.
- */
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1200&fit=crop",
-    alt: "Bride and groom walking through garden",
+    src: "/gallery/thumbs/alok-verma-80l2FftMuBI-unsplash.jpg",
+    fullSrc: "/gallery/hero/alok-verma-80l2FftMuBI-unsplash.jpg",
+    alt: "Wedding couple portrait",
     size: "tall",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&h=600&fit=crop",
-    alt: "Wedding rings on flower petals",
+    src: "/gallery/thumbs/amish-thakkar-BEdxXAiRfRM-unsplash.jpg",
+    fullSrc: "/gallery/hero/amish-thakkar-BEdxXAiRfRM-unsplash.jpg",
+    alt: "Indian wedding ceremony",
     size: "standard",
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=600&fit=crop",
-    alt: "Wedding reception table setting",
-    size: "standard",
-  },
-  {
-    id: 4,
-    src: "https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=800&h=1200&fit=crop",
-    alt: "Bride portrait with bouquet",
+    src: "/gallery/thumbs/amish-thakkar-lAY2TAhN06k-unsplash.jpg",
+    fullSrc: "/gallery/hero/amish-thakkar-lAY2TAhN06k-unsplash.jpg",
+    alt: "Bridal close-up",
     size: "tall",
   },
   {
+    id: 4,
+    src: "/gallery/thumbs/bella-pon-fruitsia-y9HsMX3-mUY-unsplash.jpg",
+    fullSrc: "/gallery/hero/bella-pon-fruitsia-y9HsMX3-mUY-unsplash.jpg",
+    alt: "Wedding decoration details",
+    size: "standard",
+  },
+  {
     id: 5,
-    src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&h=600&fit=crop",
-    alt: "Wedding ceremony in nature",
+    src: "/gallery/thumbs/dreamer-dude-PkanpXIFPrI-unsplash.jpg",
+    fullSrc: "/gallery/hero/dreamer-dude-PkanpXIFPrI-unsplash.jpg",
+    alt: "Couple at golden hour",
     size: "wide",
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&h=600&fit=crop",
-    alt: "Couple dancing at sunset",
+    src: "/gallery/thumbs/ikshana-productions-3ZISmV72cbM-unsplash.jpg",
+    fullSrc: "/gallery/hero/ikshana-productions-3ZISmV72cbM-unsplash.jpg",
+    alt: "Wedding videography",
     size: "standard",
   },
   {
     id: 7,
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop",
-    alt: "Corporate event photography",
+    src: "/gallery/thumbs/ikshana-productions-SHFOaVaVe2A-unsplash.jpg",
+    fullSrc: "/gallery/hero/ikshana-productions-SHFOaVaVe2A-unsplash.jpg",
+    alt: "Reception celebration",
     size: "standard",
   },
   {
     id: 8,
-    src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&h=1200&fit=crop",
-    alt: "Bride getting ready",
+    src: "/gallery/thumbs/khadija-yousaf-lKwp3-FQomY-unsplash.jpg",
+    fullSrc: "/gallery/hero/khadija-yousaf-lKwp3-FQomY-unsplash.jpg",
+    alt: "Bride portrait",
     size: "tall",
   },
   {
-    id: 9,
-    src: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=800&h=600&fit=crop",
-    alt: "Wedding videography behind the scenes",
-    size: "standard",
+    id: 10,
+    src: "/gallery/thumbs/mohit-maru-NCrvRQdvTx8-unsplash.jpg",
+    fullSrc: "/gallery/hero/mohit-maru-NCrvRQdvTx8-unsplash.jpg",
+    alt: "Wedding ceremony rituals",
+    size: "tall",
   },
   {
     id: 10,
-    src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&h=600&fit=crop",
-    alt: "Anniversary couple portrait",
+    src: "/gallery/thumbs/love-arya-SUwPo4ErQCc-unsplash.jpg",
+    fullSrc: "/gallery/hero/love-arya-SUwPo4ErQCc-unsplash.jpg",
+    alt: "Romantic couple moment",
     size: "standard",
   },
   {
     id: 11,
-    src: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&h=1200&fit=crop",
-    alt: "Wedding details close-up",
-    size: "tall",
+    src: "/gallery/thumbs/morgan-lane-18N4okmWccM-unsplash.jpg",
+    fullSrc: "/gallery/hero/morgan-lane-18N4okmWccM-unsplash.jpg",
+    alt: "Wedding day details",
+    size: "standard",
   },
   {
     id: 12,
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
-    alt: "Corporate gala event",
+    src: "/gallery/thumbs/one-horizon-productions-lAze38kfdAs-unsplash.jpg",
+    fullSrc: "/gallery/hero/one-horizon-productions-lAze38kfdAs-unsplash.jpg",
+    alt: "Grand wedding event",
     size: "wide",
   },
   {
     id: 13,
-    src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop",
-    alt: "Birthday celebration decorations",
+    src: "/gallery/thumbs/pixel-studios-eZXqmTEaYA8-unsplash.jpg",
+    fullSrc: "/gallery/hero/pixel-studios-eZXqmTEaYA8-unsplash.jpg",
+    alt: "Pre-wedding shoot",
     size: "standard",
   },
   {
     id: 14,
-    src: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=800&h=600&fit=crop",
-    alt: "Wedding cake cutting moment",
+    src: "/gallery/thumbs/prashant-gG5MoExhMnU-unsplash.jpg",
+    fullSrc: "/gallery/hero/prashant-gG5MoExhMnU-unsplash.jpg",
+    alt: "Traditional wedding attire",
     size: "standard",
   },
   {
     id: 15,
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&h=1200&fit=crop",
-    alt: "First dance at reception",
+    src: "/gallery/thumbs/sean-williams-d-jyMeP6uNQ-unsplash.jpg",
+    fullSrc: "/gallery/hero/sean-williams-d-jyMeP6uNQ-unsplash.jpg",
+    alt: "Couple first dance",
     size: "tall",
+  },
+  {
+    id: 16,
+    src: "/gallery/thumbs/sushanta-rokka-fIbaDBBHs6o-unsplash.jpg",
+    fullSrc: "/gallery/hero/sushanta-rokka-fIbaDBBHs6o-unsplash.jpg",
+    alt: "Wedding celebrations",
+    size: "standard",
+  },
+  {
+    id: 17,
+    src: "/gallery/thumbs/vikram-chouhan-udaipur-web-designer-NV4b7V7xB8s-unsplash.jpg",
+    fullSrc:
+      "/gallery/hero/vikram-chouhan-udaipur-web-designer-NV4b7V7xB8s-unsplash.jpg",
+    alt: "Vibrant wedding ceremony",
+    size: "wide",
+  },
+  {
+    id: 18,
+    src: "/gallery/thumbs/vikram-chouhan-udaipur-web-designer-mmrWRl-tFPw-unsplash.jpg",
+    fullSrc:
+      "/gallery/hero/vikram-chouhan-udaipur-web-designer-mmrWRl-tFPw-unsplash.jpg",
+    alt: "Groom portrait",
+    size: "tall",
+  },
+  {
+    id: 19,
+    src: "/gallery/thumbs/viresh-studio-1Yw4vYAlCxY-unsplash.jpg",
+    fullSrc: "/gallery/hero/viresh-studio-1Yw4vYAlCxY-unsplash.jpg",
+    alt: "Candid wedding moment",
+    size: "standard",
+  },
+  {
+    id: 20,
+    src: "/gallery/thumbs/vitaliy-lyubezhanin-gfVofr15ICc-unsplash.jpg",
+    fullSrc: "/gallery/hero/vitaliy-lyubezhanin-gfVofr15ICc-unsplash.jpg",
+    alt: "Wedding venue decoration",
+    size: "standard",
   },
 ];
 
