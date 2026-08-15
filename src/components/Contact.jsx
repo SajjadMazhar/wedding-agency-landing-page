@@ -3,12 +3,10 @@ import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import SectionHeader from './SectionHeader';
 
-// const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || '';
-// const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
-// const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || '';
-const SERVICE_ID  = "service_axr3kfv";
-const TEMPLATE_ID = "template_weubj1g";
-const PUBLIC_KEY  = "ErLUcgzv4WIi09d7d";
+const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || '';
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || '';
+
 
 const formVariants = {
   hidden: { opacity: 0 },
