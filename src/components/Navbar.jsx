@@ -4,22 +4,6 @@ import { useTheme } from '../context/ThemeContext.jsx';
 
 const sections = ['home', 'services', 'gallery', 'pricing', 'contact'];
 
-function NavLinks({ activeSection }) {
-  return (
-    <>
-      {sections.map((id) => (
-        <a
-          key={id}
-          href={`#${id}`}
-          className={activeSection === id ? 'active' : ''}
-        >
-          {id.charAt(0).toUpperCase() + id.slice(1)}
-        </a>
-      ))}
-    </>
-  );
-}
-
 export default function Navbar() {
   const [pastHero, setPastHero] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -56,61 +40,44 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="nav-top">
+      <div className="nav-inner">
+        {/* Logo */}
         <a href="#home" className="nav-logo">
           <img src="/logo.png" alt="Aslam Digital Studio" className="nav-logo-img" />
-          {pastHero && (
-            <>
-              <span className="logo-script">Aslam Digital Studio</span>
-              <span className="logo-sub">Photography & Videography</span>
-            </>
-          )}
-        </a>
-        <div className="nav-center">
           <AnimatePresence>
-            {!pastHero && (
+            {pastHero && (
               <motion.div
-                className="nav-links-hero"
-                key="links"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                className="nav-logo-text"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.3 }}
               >
-                <NavLinks activeSection={activeSection} />
+                <span className="logo-script">Aslam Digital Studio</span>
               </motion.div>
             )}
           </AnimatePresence>
+        </a>
+
+        {/* Center links */}
+        <div className="nav-links">
+          {sections.map((id) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`nav-link${activeSection === id ? ' active' : ''}`}
+            >
+              {id.charAt(0).toUpperCase() + id.slice(1)}
+            </a>
+          ))}
         </div>
+
+        {/* Right actions */}
         <div className="nav-actions">
-          {pastHero && (
-            <>
-              <div className="nav-social">
-                <a href="https://www.instagram.com/aslam_digital_studio?igsh=bHV2Y25kZTV2OGZ6&igsi=bHV2Y25kZTV2OGZ6" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="2" y="2" width="20" height="20" rx="5"/>
-                    <circle cx="12" cy="12" r="5"/>
-                    <circle cx="17.5" cy="6.5" r="1.5"/>
-                  </svg>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=100063980112449#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                  </svg>
-                </a>
-                <a href="https://www.youtube.com/@Sunny3167" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/>
-                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
-                  </svg>
-                </a>
-              </div>
-              <div className="nav-actions-divider" />
-            </>
-          )}
-          <a href="#contact" className="btn-nav">Book Now</a>
-          <a href="#contact" className="btn-nav btn-nav-filled">Get a Quote</a>
-          <button className="btn-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+          <a href="#contact" className="nav-cta">
+            <span>Book Now</span>
+          </a>
+          <button className="nav-theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'dark' ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="12" cy="12" r="5"/>
@@ -130,9 +97,6 @@ export default function Navbar() {
             )}
           </button>
         </div>
-      </div>
-      <div className="nav-links">
-        <NavLinks activeSection={activeSection} />
       </div>
     </motion.nav>
   );

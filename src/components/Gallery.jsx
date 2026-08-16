@@ -1,26 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import GalleryParticles from './GalleryParticles';
 import galleryImages from '../data/galleryImages';
 
-const VISIBLE_LIMIT = 10;
+function MarqueeRow({ images, direction = 'left', speed = 30 }) {
+  const doubled = useMemo(() => [...images, ...images], [images]);
+  const duration = images.length * speed;
 
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: (i) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, delay: i * 0.07, ease: "easeOut" }
-  })
-};
+  return (
+    <div className="marquee-row">
+      <motion.div
+        className="marquee-track"
+        animate={{ x: direction === 'left' ? [0, -50 + '%'] : [-50 + '%', 0] }}
+        transition={{ duration, ease: 'linear', repeat: Infinity }}
+      >
+        {doubled.map((img, i) => (
+          <div className="marquee-item" key={`${img.src}-${i}`}>
+            <img src={img.src} alt={img.alt} loading="lazy" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Gallery() {
   const [modalOpen, setModalOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
-  const visibleImages = galleryImages.slice(0, VISIBLE_LIMIT);
-  const hasMore = galleryImages.length > VISIBLE_LIMIT;
+  const row1 = useMemo(() => galleryImages.filter((_, i) => i % 2 === 0), []);
+  const row2 = useMemo(() => galleryImages.filter((_, i) => i % 2 === 1), []);
+
+  const featured = useMemo(() => {
+    const tall = galleryImages.filter(img => img.size === 'tall');
+    return tall.length > 3 ? tall.slice(0, 5) : galleryImages.slice(0, 5);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFeaturedIndex(prev => (prev + 1) % featured.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [featured.length]);
 
   useEffect(() => {
     if (modalOpen || lightboxIndex !== null) {
@@ -53,38 +76,74 @@ export default function Gallery() {
         title="Our Work"
         subtitle="A collection of weddings, celebrations, and events we've had the privilege to capture on camera."
       />
-      <div className="gallery-grid">
-        {visibleImages.map((img, i) => (
-          <motion.div
-            className={`gallery-item${img.size === 'tall' ? ' tall' : ''}${img.size === 'wide' ? ' wide' : ''}`}
-            key={img.id}
-            custom={i}
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            whileHover={{ scale: 1.03, zIndex: 2 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => openLightbox(i)}
-          >
-            <img src={img.src} alt={img.alt} loading="lazy" />
-          </motion.div>
-        ))}
+
+      {/* Marquee strips */}
+      <div className="gallery-marquee">
+        <MarqueeRow images={row1} direction="left" speed={3} />
+        <MarqueeRow images={row2} direction="right" speed={3.5} />
       </div>
 
-      {hasMore && (
-        <div className="gallery-more">
-          <motion.button
-            className="btn-show-more"
-            onClick={() => setModalOpen(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            View All Photos ({galleryImages.length})
-          </motion.button>
+      {/* Featured showcase */}
+      <div className="gallery-showcase">
+        <div className="showcase-main">
+          <AnimatePresence mode="wait">
+            <motion.div
+              className="showcase-main-image"
+              key={featuredIndex}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.8 }}
+              onClick={() => openLightbox(galleryImages.indexOf(featured[featuredIndex]))}
+            >
+              <img src={featured[featuredIndex].fullSrc || featured[featuredIndex].src} alt={featured[featuredIndex].alt} />
+              <div className="showcase-main-overlay">
+                <span className="showcase-main-caption">{featured[featuredIndex].alt}</span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+          <div className="showcase-indicators">
+            {featured.map((_, i) => (
+              <button
+                key={i}
+                className={`showcase-dot${i === featuredIndex ? ' active' : ''}`}
+                onClick={() => setFeaturedIndex(i)}
+              />
+            ))}
+          </div>
         </div>
-      )}
+        <div className="showcase-side">
+          {galleryImages.slice(10, 14).map((img, i) => (
+            <motion.div
+              className="showcase-side-item"
+              key={img.src}
+              whileHover={{ scale: 1.04 }}
+              onClick={() => openLightbox(galleryImages.indexOf(img))}
+            >
+              <img src={img.src} alt={img.alt} loading="lazy" />
+              <div className="showcase-side-overlay">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
+      {/* View all button */}
+      <div className="gallery-more">
+        <motion.button
+          className="btn-show-more"
+          onClick={() => setModalOpen(true)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          View All Photos ({galleryImages.length})
+        </motion.button>
+      </div>
+
+      {/* Modal */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -169,6 +228,7 @@ export default function Gallery() {
         )}
       </AnimatePresence>
 
+      {/* Lightbox */}
       <AnimatePresence>
         {lightboxIndex !== null && (
           <motion.div
