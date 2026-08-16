@@ -1350,6 +1350,67 @@ img {
   transform: translateX(3px);
 }
 
+.pricing-message {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 60px 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+}
+
+.pricing-message-icon {
+  color: var(--accent);
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+.pricing-message-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: 0.3px;
+}
+
+.pricing-message-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
+
+.pricing-message-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #D4A843 0%, #E8C766 50%, #D4A843 100%);
+  color: #1a1a1a;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.pricing-message-cta:hover {
+  box-shadow: 0 4px 20px rgba(212, 168, 67, 0.3);
+}
+
+.pricing-message-cta svg {
+  transition: transform 0.3s ease;
+}
+
+.pricing-message-cta:hover svg {
+  transform: translateX(4px);
+}
+
 /* Contact */
 .contact {
   padding: 140px 40px;

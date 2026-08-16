@@ -1,16 +1,97 @@
-# React + Vite
+# Aslam Digital Studio — Wedding Photography Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A premium, visually rich website for **Aslam Digital Studio**, a wedding photography and videography studio. Built with React, Vite, and Framer Motion with cinematic animations, parallax effects, and responsive design across all devices.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** — UI framework
+- **Vite 8** — Build tool with HMR
+- **Framer Motion 13** — Animations, scroll-triggered reveals, page transitions
+- **Three.js / React Three Fiber** — Particle effects (hero, gallery, contact backgrounds)
+- **EmailJS** — Contact form submissions
+- **CSS Custom Properties** — Theme system (dark/light mode)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Full-screen cinematic hero with Ken Burns slideshow, parallax scroll, and floating SVG ornaments
+- Dark/light mode toggle with localStorage persistence (defaults to dark)
+- Gallery section with auto-scrolling marquee strips, featured showcase, full-collection modal, and keyboard-navigable lightbox
+- Services section with immersive parallax image cards and staggered entrance animations
+- Pricing section with customisable package display (currently showing a formal enquiry message)
+- Contact section with split layout — info panel + form powered by EmailJS
+- Multi-column footer with quick links, services, and contact details
+- Three.js gold particle effects across hero, gallery, and contact sections
+- Fully responsive from 360px to ultrawide displays
+- 81 optimised gallery images (800px thumbnails + 1400px hero variants)
+- 20 hero slides with unique taglines and Ken Burns configurations
 
-## Expanding the Oxlint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+Opens at `http://localhost:5173` (or next available port).
+
+### Production Build
+
+```bash
+npm run build
+```
+
+Output goes to `dist/`.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Environment Variables
+
+Create a `.env` file for contact form functionality:
+
+```
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+## Project Structure
+
+```
+src/
+  components/       # React components (Hero, Navbar, Services, Gallery, Pricing, Contact, Footer)
+  context/          # Theme context provider
+  data/             # Gallery images, hero slides, packages data
+  styles/           # Global CSS with responsive breakpoints
+public/
+  gallery/          # Optimised images (thumbs/ and hero/ subdirectories)
+  logo.png          # Studio logo
+```
+
+## Deployment
+
+The project is configured for Firebase Hosting. Run:
+
+```bash
+npm run build
+firebase deploy
+```
+
+## License
+
+All rights reserved. This website is built for Aslam Digital Studio.

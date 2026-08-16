@@ -1,31 +1,32 @@
 import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
-import packages from '../data/packages';
 
-const checkIcon = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 60, scale: 0.95 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }
-  })
-};
-
-const featureVariants = {
-  hidden: { opacity: 0, x: -10 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.3, delay: 0.4 + i * 0.05 }
-  })
-};
+// import packages from '../data/packages';
+//
+// const checkIcon = (
+//   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+//     <polyline points="20 6 9 17 4 12" />
+//   </svg>
+// );
+//
+// const cardVariants = {
+//   hidden: { opacity: 0, y: 60, scale: 0.95 },
+//   visible: (i) => ({
+//     opacity: 1,
+//     y: 0,
+//     scale: 1,
+//     transition: { duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }
+//   })
+// };
+//
+// const featureVariants = {
+//   hidden: { opacity: 0, x: -10 },
+//   visible: (i) => ({
+//     opacity: 1,
+//     x: 0,
+//     transition: { duration: 0.3, delay: 0.4 + i * 0.05 }
+//   })
+// };
 
 export default function Pricing() {
   return (
@@ -34,6 +35,38 @@ export default function Pricing() {
         title="Our Packages"
         subtitle="Flexible photo and video packages designed for weddings, corporate events, birthdays, and anniversaries."
       />
+
+      <motion.div
+        className="pricing-message"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        <div className="pricing-message-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 7l-10 6L2 7" />
+          </svg>
+        </div>
+        <h3 className="pricing-message-title">Custom Packages Tailored to Your Event</h3>
+        <p className="pricing-message-text">
+          Every celebration is unique, and so is our pricing. We offer customised packages based on your specific requirements — event duration, coverage style, team size, and deliverables. Reach out to us with your event details and we'll craft a personalised quote within 24 hours.
+        </p>
+        <motion.a
+          href="#contact"
+          className="pricing-message-cta"
+          whileHover={{ scale: 1.04, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          <span>Request a Quote</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </motion.a>
+      </motion.div>
+
+      {/* Package cards — commented out per client request
       <div className="pkg-grid">
         {packages.map((pkg, i) => (
           <motion.div
@@ -98,6 +131,7 @@ export default function Pricing() {
           </motion.div>
         ))}
       </div>
+      */}
     </section>
   );
 }
